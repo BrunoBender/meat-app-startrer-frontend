@@ -1,0 +1,15 @@
+<section class="content-header">
+</section>
+
+<section class="content">
+  <div class="jumbotron">
+    <h2>Recived finished</h2>
+    <p>Your request was recived by restaurant. Wait in your home, your food it´s commig!</p>
+    <p><b>Rating</b> your experience:</p>
+    <p><mt-rating (rated)="rate() "></mt-rating></p>
+    <p *ngIf=" rated">
+      Thank you for your rating! :)
+    </p>
+  </div>
+
+</section>

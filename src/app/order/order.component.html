@@ -1,0 +1,120 @@
+<section class="content-header">
+</section>
+
+<section class="content">
+  <section class="invoice">
+
+    <!-- {{form.valid}}
+    {{form.value | json}} -->
+
+        <form [formGroup]="orderForm" novalidade >
+          <div class="row">
+            <div class="col-xs-12">
+              <h2 class="page-header">
+                <i class="fa fa-shopping-cart"></i> Finalize o seu pedido
+              </h2>
+            </div>
+          </div>                
+
+          <div class="row">
+            <div div class="col-xs-12">
+              <p class="lead">Seus dados:</p>
+            </div>
+
+            <div class="col-sm-9 col-xs-12">
+              <span class="help-block pull-right has-error-block" *ngIf="orderForm.hasError('emailsNotMatch')"><i class="fa fa-check"></i>Emails aren´t equals</span>
+
+            </div>
+
+            <div>
+              <mt-imput-container errorMessage="Mandatory field, minimum value is 5 characters" label="name">
+                <input class="form-control col-sm-6 col-xs-12" formControlName="name"  autocomplete="off" placeholder="Nome">
+              </mt-imput-container>
+            </div>
+
+            <div class="">
+              <mt-imput-container errorMessage="Email invalid" label="E-mail">
+                <input class="form-control col-sm-3 col-xs-6" formControlName="email" autocomplete="off" placeholder="E-mail">
+              </mt-imput-container>
+            </div>
+
+            <div class="">
+              <mt-imput-container errorMessage="Email invalid" label="E-mail">
+                <input class="form-control col-sm-3 col-xs-6" formControlName="emailConfirmation" autocomplete="off" placeholder="Confirm e-mail">
+              </mt-imput-container>
+            </div>
+          </div>
+
+          <div class="row invoice-info">
+            <div class="col-xs-12">
+              <p class="lead">Endereço de Entrega:</p>
+            </div>
+
+            <div>
+              <mt-imput-container errorMessage="Mandatory field, minimum value is 5 characters" label="Access">
+                <input class="form-control col-sm-6 col-xs-12" formControlName="address" autocomplete="off" placeholder="Access">
+              </mt-imput-container>
+            </div>
+
+            <div class="">
+              <mt-imput-container errorMessage="Mandatory, and just number" label="Number">
+                <input class="form-control col-sm-3 col-xs-6" formControlName="number" autocomplete="off" placeholder="Number" pattern="^[0-9]*$">
+              </mt-imput-container>
+            </div>
+
+            <div>
+              <mt-imput-container label="Optional">
+                <input type="text" class="form-control col-sm-3 col-xs-6" id="inputSuccess" placeholder="Complemento" formControlName="optionalAddress">
+              </mt-imput-container>
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+
+          <!-- Table row -->
+          <div class="row">
+            <div class="col-xs-12">
+              <p class="lead">Itens do Pedido:</p>
+            </div>
+            
+            <mt-order-items [itens]="cartItems()"
+              (increaseQty)="increaseQty($event)"
+              (decreaseQty)="decreaseQty($event)"
+              (remove)="remove($event)"></mt-order-items>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+
+          <div class="row">
+            <!-- accepted payments column -->
+            <div class="col-sm-6 col-xs-12">
+              <p class="lead">Formas de Pagamento:</p>
+
+                <div class="form-group">
+                  <mt-radio [options]="paymentOptions" formControlName="paymentOption"></mt-radio>
+                </div>
+
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-6 col-xs-12">
+              <p class="lead">Frete e Total:</p>
+
+              <mt-delivery-costs 
+                [delivery]='delivery' 
+                [itemsValue]='itemsValue()'></mt-delivery-costs>
+              
+            </div>
+            <!-- /.col -->
+          </div>
+
+        </form>
+
+        <div class="row">
+          <div class="col-xs-12">  
+            <button (click)="checkOrder(orderForm.value)" class="btn btn-success pull-right" [disabled]="!orderForm.valid || cartItems().length === 0"><i class="fa fa-credit-card"></i> Concluir Pedido
+            </button>
+          </div>
+        </div>
+
+    </section>
+</section>
